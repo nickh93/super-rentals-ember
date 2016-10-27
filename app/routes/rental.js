@@ -15,7 +15,7 @@ export default Ember.Route.extend({
       rental.save();
       this.transitionTo('index');
     },
-    
+
     saveReview(params) {
       var newReview = this.store.createRecord('review', params);
       var rental = params.rental;
@@ -26,9 +26,19 @@ export default Ember.Route.extend({
       this.transitionTo('rental', rental);
     },
 
-    destroyRental(rental) {
-      rental.destroyRecord();
+    destroyReview(review) {
+      review.destroyRecord();
       this.transitionTo('index');
-    }
+    },
+
+    destroyRental(rental) {
+      var review_deletions = rental.get('reviews').map(function(review) {
+        return review.destroyRecord();
+      });
+      Ember.RSVP.all(review_deletions).then(function() {
+        return rental.destroyRecord();
+      });
+      this.transitionTo('index');
+    },
   }
 });
