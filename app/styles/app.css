@@ -2,7 +2,7 @@ body {
   text-align: center;
   font-family: "Avenir Next";
   background-color: #303040;
-  
+
 }
 
 img {
@@ -35,4 +35,8 @@ li {
 
 .glyphicon {
   color: orange;
+}
+
+.cost {
+  color: green;
 }
